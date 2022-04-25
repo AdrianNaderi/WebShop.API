@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using WebShop.API.Models.Entities;
 
 namespace WebShop.API.Data
 {
@@ -9,5 +10,7 @@ namespace WebShop.API.Data
         {
 
         }
+
+        public DbSet<Product> Products { get; set; }
     }
 }
