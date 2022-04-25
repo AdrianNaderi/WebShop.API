@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using WebShop.API.Models.Entities;
+using WebShop.API.Models.ViewModels;
 
 namespace WebShop.API.AutoMapper
 {
@@ -6,7 +8,7 @@ namespace WebShop.API.AutoMapper
     {
         public AutoMapperProfiles()
         {
-
+            CreateMap<Product, CreateProduct>();
         }
     }
 }
