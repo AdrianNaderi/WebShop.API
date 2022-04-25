@@ -1,8 +1,11 @@
-﻿namespace WebShop.API.Data
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
+namespace WebShop.API.Data
 {
-    public class AppDbContext
+    public class AppDbContext : IdentityDbContext
     {
-        public AppDbContext()
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
 
         }
