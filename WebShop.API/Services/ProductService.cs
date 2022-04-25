@@ -1,4 +1,5 @@
-﻿using WebShop.API.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using WebShop.API.Data;
 using WebShop.API.Models.Entities;
 using WebShop.API.Models.ViewModels;
 
@@ -14,9 +15,43 @@ namespace WebShop.API.Services
                         _db = db;
                 }
 
-                public Task CreateProductAsync(CreateProduct product)
+                public async Task CreateProductAsync(CreateProduct product)
                 {
-                        throw new NotImplementedException();
+                        var productEntity = new Product
+                        {
+                            Name = product.Name,
+                            Price = product.Price,
+                            Description = product.Description,
+                            Color = product.Color,
+                            Size = product.Size,
+                            Brand = product.Brand,
+                            Category = product.Category,
+                            OnSale = product.OnSale,
+                            Quantity = product.Quantity,
+                            Rating = product.Rating,
+                            
+                        };
+
+                        await _db.Products.AddAsync(productEntity);
+                        await _db.SaveChangesAsync();
+
+                        new Product
+                        {
+                            Name = productEntity.Name,
+                            Price = productEntity.Price,
+                            Description = productEntity.Description,
+                            Color = productEntity.Color,
+                            Size = productEntity.Size,
+                            Brand = productEntity.Brand,
+                            Category = productEntity.Category,
+                            OnSale = productEntity.OnSale,
+                            Quantity = productEntity.Quantity,
+                            Rating = productEntity.Rating,
+                            
+
+                        };
+                
+
                 }
 
                 public Task DeleteProductAsync(Product product)
