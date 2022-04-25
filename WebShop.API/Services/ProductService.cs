@@ -1,10 +1,19 @@
-﻿using WebShop.API.Models.Entities;
+﻿using WebShop.API.Data;
+using WebShop.API.Models.Entities;
 using WebShop.API.Models.ViewModels;
 
 namespace WebShop.API.Services
 {
         public class ProductService : IProductService
         {
+
+                private readonly AppDbContext _db;
+
+                public ProductService(AppDbContext db)
+                {
+                        _db = db;
+                }
+
                 public Task CreateProductAsync(CreateProduct product)
                 {
                         throw new NotImplementedException();
