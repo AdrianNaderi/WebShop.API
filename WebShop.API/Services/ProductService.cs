@@ -30,9 +30,10 @@ namespace WebShop.API.Services
                         throw new NotImplementedException();
                 }
 
-                public Task<IEnumerable<Product>> ReadAllProductsAsync()
+                public async Task<IEnumerable<Product>> ReadAllProductsAsync()
                 {
-                        throw new NotImplementedException();
+                        var products = await _db.Products.ToListAsync();
+                        return products;
                 }
 
                 public Task<Product> ReadSingleProductAsync(int id)
