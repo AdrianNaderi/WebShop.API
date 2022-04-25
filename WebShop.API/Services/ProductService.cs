@@ -25,9 +25,10 @@ namespace WebShop.API.Services
                         await _db.SaveChangesAsync();
                 }
 
-                public Task DeleteProductAsync(Product product)
+                public async Task DeleteProductAsync(Product product)
                 {
-                        throw new NotImplementedException();
+                        _db.Remove(product);
+                        await _db.SaveChangesAsync();
                 }
 
                 public async Task<IEnumerable<Product>> ReadAllProductsAsync()
