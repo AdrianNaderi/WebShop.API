@@ -41,9 +41,13 @@ namespace WebShop.API.Services
                         throw new NotImplementedException();
                 }
 
-                public Task UpdateProductAsync(UpdateProduct product)
+                public async Task UpdateProductAsync(UpdateProduct product)
                 {
-                        throw new NotImplementedException();
+                        
+	                   var productEntity = _mapper.Map<UpdateProduct>(product);                   
+                       await _db.Products.Update(productEntity);
+                       await _db.SaveChangesAsync();
+
                 }
         }
 }
