@@ -45,7 +45,7 @@ namespace WebShop.API.Services
                 public async Task UpdateProductAsync(UpdateProduct product)
                 {
                        var productEntity = _mapper.Map<UpdateProduct>(product);                  
-                       _db.Update(product);
+                       _db.Update(productEntity);
                        await _db.SaveChangesAsync();
 
                 }

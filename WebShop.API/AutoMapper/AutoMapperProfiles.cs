@@ -9,7 +9,7 @@ namespace WebShop.API.AutoMapper
         public AutoMapperProfiles()
         {
             CreateMap<Product, CreateProduct>();
-            CreateMap<UpdateProduct Product>();
+            CreateMap<UpdateProduct, Product>();
 
         }
     }
