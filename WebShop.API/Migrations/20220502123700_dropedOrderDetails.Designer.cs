@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebShop.API.Data;
 
@@ -11,9 +12,10 @@ using WebShop.API.Data;
 namespace WebShop.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220502123700_dropedOrderDetails")]
+    partial class dropedOrderDetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -334,6 +336,75 @@ namespace WebShop.API.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("WebShop.API.Models.Entities.Product", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("BrandEntityBrandId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CategoryEntityCategory")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ColorEntityColor")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("OnSale")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("money");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Size")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SizeEntitySize")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BrandEntityBrandId");
+
+                    b.HasIndex("CategoryEntityCategory");
+
+                    b.HasIndex("ColorEntityColor");
+
+                    b.HasIndex("SizeEntitySize");
+
+                    b.ToTable("Product");
+                });
+
             modelBuilder.Entity("WebShop.API.Models.Entities.ProductEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -542,24 +613,43 @@ namespace WebShop.API.Migrations
                     b.Navigation("Order");
                 });
 
+            modelBuilder.Entity("WebShop.API.Models.Entities.Product", b =>
+                {
+                    b.HasOne("WebShop.API.Models.Entities.BrandEntity", null)
+                        .WithMany("Products")
+                        .HasForeignKey("BrandEntityBrandId");
+
+                    b.HasOne("WebShop.API.Models.Entities.CategoryEntity", null)
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryEntityCategory");
+
+                    b.HasOne("WebShop.API.Models.Entities.ColorEntity", null)
+                        .WithMany("Products")
+                        .HasForeignKey("ColorEntityColor");
+
+                    b.HasOne("WebShop.API.Models.Entities.SizeEntity", null)
+                        .WithMany("Products")
+                        .HasForeignKey("SizeEntitySize");
+                });
+
             modelBuilder.Entity("WebShop.API.Models.Entities.ProductEntity", b =>
                 {
                     b.HasOne("WebShop.API.Models.Entities.BrandEntity", "BrandEntity")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("BrandEntityBrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WebShop.API.Models.Entities.CategoryEntity", "CategoryEntity")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("CategoryEntityCategory");
 
                     b.HasOne("WebShop.API.Models.Entities.ColorEntity", "ColorEntity")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("ColorEntityColor");
 
                     b.HasOne("WebShop.API.Models.Entities.SizeEntity", "SizeEntity")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("SizeEntitySize")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -575,7 +665,7 @@ namespace WebShop.API.Migrations
 
             modelBuilder.Entity("WebShop.API.Models.Entities.ProductTag", b =>
                 {
-                    b.HasOne("WebShop.API.Models.Entities.ProductEntity", "Product")
+                    b.HasOne("WebShop.API.Models.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)

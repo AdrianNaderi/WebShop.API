@@ -6,7 +6,7 @@ namespace WebShop.API.Models.Entities
         {
                 [ForeignKey("Product")]
                 public int ProductId { get; set; }
-                public Product Product { get; set; }
+                public ProductEntity Product { get; set; }
 
                 [ForeignKey("Tag")]
                 public string Tag { get; set; }

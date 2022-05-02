@@ -28,9 +28,5 @@ namespace WebShop.API.Models.Entities
         public int Quantity { get; set; }
         [Required]
         public int Rating { get; set; } = 0;
-
-        [ValidateNever]
-        public ICollection<OrderDetail> OrderDetails { get; set; }
-
     }
 }

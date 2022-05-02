@@ -11,7 +11,7 @@ namespace WebShop.API.Models.Entities
                 public int Id { get; set; }
                 [Required]
                 public string Name { get; set; }
-                public string Description { get; set; }
+                public string? Description { get; set; }
                 [Required]
                 [Column(TypeName = "money")]
                 public decimal Price { get; set; }

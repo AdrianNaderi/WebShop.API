@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebShop.API.Models.Entities
 {
@@ -6,5 +7,6 @@ namespace WebShop.API.Models.Entities
         {
                 [Key]
                 public string Tag { get; set; }
+                
         }
 }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebShop.API.Models.Entities
 {
-    public class Order
+    public class OrderEntity
     {
         [Key]
         public int Id { get; set; }
@@ -16,10 +16,7 @@ namespace WebShop.API.Models.Entities
         [Column(TypeName = "money")]
         public decimal OrderTotal { get; set; }
 
-        //public string? OrderStatus { get; set; }
-        //public string? PaymentStatus { get; set; }
-
         [ValidateNever]
-        public ICollection<OrderDetail> OrderDetails { get; set; }
+        public ICollection<OrderDetailEntity> OrderDetails { get; set; }
     }
 }

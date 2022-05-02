@@ -20,7 +20,7 @@ namespace WebShop.API.Services
 
                 public async Task CreateProductAsync(CreateProduct product)
                 {
-                        var productEntity = _mapper.Map<Product>(product);                   
+                        var productEntity = _mapper.Map<ProductEntity>(product);                   
                         await _db.Products.AddAsync(productEntity);
                         await _db.SaveChangesAsync();
                 }
@@ -31,7 +31,7 @@ namespace WebShop.API.Services
                         await _db.SaveChangesAsync();
                 }
 
-                public async Task<IEnumerable<Product>> ReadAllProductsAsync()
+                public async Task<IEnumerable<ProductEntity>> ReadAllProductsAsync()
                 {
                         var products = await _db.Products.ToListAsync();
                         return products;

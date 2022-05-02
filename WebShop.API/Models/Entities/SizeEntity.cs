@@ -9,6 +9,6 @@ namespace WebShop.API.Models.Entities
                 public string Size { get; set; }
 
                 [ValidateNever]
-                public ICollection<Product> Products { get; set; }
+                public ICollection<ProductEntity> Products { get; set; }
         }
 }
