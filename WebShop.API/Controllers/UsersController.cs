@@ -42,24 +42,24 @@ namespace WebShop.API.Controllers
                 }
 
                 [HttpPost]
-        public async Task<IActionResult> Register(UserRegisterModel model) 
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new IdentityUser()
+                public async Task<IActionResult> Register(UserRegisterModel model) 
                 {
-                    UserName = model.UserName,
-                    Email = model.Email,
-                };
+                    if (ModelState.IsValid)
+                    {
+                        var user = new IdentityUser()
+                        {
+                            UserName = model.UserName,
+                            Email = model.Email,
+                        };
 
-                var registration = await _userManager.CreateAsync(user);
-                if (registration.Succeeded)
-                {
-                    return new OkObjectResult(user);
+                        var registration = await _userManager.CreateAsync(user);
+                        if (registration.Succeeded)
+                        {
+                            return new OkObjectResult(user);
+                        }
+                    }
+
+                    return new BadRequestResult();
                 }
-            }
-
-            return new BadRequestResult();
-        }
         }
 }
