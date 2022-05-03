@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
+using WebShop.API;
 using WebShop.API.Data;
+using WebShop.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +18,20 @@ builder.Services.AddDbContext<AppDbContext>(x => x.UseSqlServer(builder.Configur
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders()
     .AddEntityFrameworkStores<AppDbContext>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddScoped<ILoginService, LoginServiceJWT>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+
+
+
+
+
+var section = builder.Configuration.GetSection("AppSettings");
+builder.Services.Configure<AppSettings>(section);
+var settings = section.Get<AppSettings>();
+var key = Encoding.ASCII.GetBytes(settings.Key);
+
+
 
 var app = builder.Build();
 
