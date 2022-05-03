@@ -19,7 +19,7 @@ namespace WebShop.API.Controllers
             _loginService = loginService;
             _userManager = userManager;
         }
-
+         
 
         [HttpPost("Login")]
         public async Task<IActionResult> LoginUser(LoginUser loginUser)
