@@ -8,7 +8,7 @@ namespace WebShop.API.Models.Entities
         [Key]
         public int Id { get; set; }
         [Required]
-        public int ReviewStars { get; set; } 
+        public int ReviewStars { get; set; }
         [Required]
         public string Comment { get; set; }
         [Required]
