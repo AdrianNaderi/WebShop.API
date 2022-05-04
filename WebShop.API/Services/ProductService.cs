@@ -37,9 +37,9 @@ namespace WebShop.API.Services
             return products;
         }
 
-        public Task<Product> ReadSingleProductAsync(int id)
+        public async Task<ProductEntity> ReadSingleProductAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _db.Products.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task UpdateProductAsync(UpdateProduct product)
