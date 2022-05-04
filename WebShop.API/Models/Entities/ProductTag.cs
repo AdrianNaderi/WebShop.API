@@ -13,3 +13,5 @@ namespace WebShop.API.Models.Entities
         public TagEntity TagEntity { get; set; }
     }
 }
+
+//delete this comment
