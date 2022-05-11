@@ -34,7 +34,7 @@ namespace WebShop.API.Services
         public async Task<IEnumerable<ProductEntity>> ReadAllProductsAsync()
         {
             var products = await _db.Products.ToListAsync();
-            return products;
+            return products; 
         }
 
         public async Task<ProductEntity> ReadSingleProductAsync(int id)
