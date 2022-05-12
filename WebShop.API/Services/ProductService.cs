@@ -25,7 +25,7 @@ namespace WebShop.API.Services
             await _db.SaveChangesAsync();
         }
 
-        public async Task DeleteProductAsync(Product product)
+        public async Task DeleteProductAsync(ProductEntity product)
         {
             _db.Remove(product);
             await _db.SaveChangesAsync();
