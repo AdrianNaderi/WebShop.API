@@ -7,7 +7,7 @@ namespace WebShop.API.Services
     {
         Task CreateProductAsync(CreateProduct product);
         Task<IEnumerable<ProductEntity>> ReadAllProductsAsync();
-        Task<Product> ReadSingleProductAsync(int id);
+        Task<ProductEntity> ReadSingleProductAsync(int id);
         Task DeleteProductAsync(ProductEntity product);
         Task UpdateProductAsync(UpdateProduct product);
 
