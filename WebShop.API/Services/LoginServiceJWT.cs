@@ -12,9 +12,9 @@ namespace WebShop.API.Services
         {
                 private readonly AppSettings _appSettings;
                 SignInManager<IdentityUser> _signInManager;
-                private readonly UserService _userService;
+                private readonly IUserService _userService;
 
-                public LoginServiceJWT(IOptions<AppSettings> appSettings, SignInManager<IdentityUser> signInManager, UserService userService)
+                public LoginServiceJWT(IOptions<AppSettings> appSettings, SignInManager<IdentityUser> signInManager, IUserService userService)
                 {
                         _appSettings = appSettings.Value;
                         _signInManager = signInManager;
@@ -31,7 +31,6 @@ namespace WebShop.API.Services
                         if (login.Succeeded)
                                 return HandingOverToken(loginUser.Payload);
                         
-
                         return null;
                 }
 
