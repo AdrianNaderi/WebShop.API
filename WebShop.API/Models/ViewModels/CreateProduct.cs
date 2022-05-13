@@ -2,17 +2,27 @@
 
 namespace WebShop.API.Models.ViewModels
 {
-        public class CreateProduct
-        {
-                public string Name { get; set; }
-                public decimal Price { get; set; }
-                public string Description { get; set; }
-                public string Color { get; set; }
-                public string Size { get; set; }
-                public string BrandId { get; set; }
-                public string Category { get; set; }
-                public bool OnSale { get; set; }
-                public int Quantity { get; set; }
-                public int Rating { get; set; } = 0;
-        }
+    public class CreateProduct
+    {
+        [Required]
+        public string Name { get; set; }
+        public string? Description { get; set; }
+        [Required]
+        public decimal Price { get; set; }
+        public decimal? SalePrice { get; set; }
+        [Required]
+        public string Category { get; set; }
+        [Required]
+        public string Color { get; set; }
+        [Required]
+        public string Size { get; set; }
+        [Required]
+        public string BrandId { get; set; }
+        [Required]
+        public bool OnSale { get; set; }
+        [Required]
+        public int Quantity { get; set; }
+        [Required]
+        public int Rating { get; set; } = 0;
+    }
 }
