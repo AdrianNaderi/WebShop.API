@@ -10,6 +10,7 @@ namespace WebShop.API.Services
         Task<ProductEntity> ReadSingleProductAsync(int id);
         Task DeleteProductAsync(ProductEntity product);
         Task UpdateProductAsync(UpdateProduct product);
+        Task<bool> GetProductByName(string productName);
 
     }
 }
