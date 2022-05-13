@@ -18,6 +18,13 @@ namespace WebShop.API.Services
             _mapper = mapper;
         }
 
+        public async Task<bool> GetProductByName(string productName)
+        {
+            if (await _db.Products.AnyAsync(x => x.Name == productName))
+                return true;
+            else return false;
+        }
+
         public async Task CreateProductAsync(CreateProduct product)
         {
             var productEntity = _mapper.Map<ProductEntity>(product);
