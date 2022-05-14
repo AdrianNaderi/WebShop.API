@@ -63,25 +63,30 @@ namespace WebShop.API.Services
             IQueryable<ProductEntity> query = _db.Products;
             foreach (var item in t.GetProperties())
             {
-                query = Querybuilder(item.ToString(), item.GetValue(filter, null).ToString());
+                query = Querybuilder(item.ToString(), item.GetValue(filter, null).ToString(), query);
                 return await query.ToListAsync();
             }
+
+            return await query.ToListAsync();
         }
 
-        private IQueryable<ProductEntity> Querybuilder(string prop, string value)
+        private IQueryable<ProductEntity> Querybuilder(string prop, string value, IQueryable<ProductEntity> query)
         {
             switch (prop)
             {
                 case "Category":
-                    return FilterByCategories(value);
+                    return FilterByCategories(value, query);
                 default:
                     return null;
             }
         }
 
-        private IQueryable<ProductEntity> FilterByCategories(string category)
+        #region Filters
+        private IQueryable<ProductEntity> FilterByCategories(string category, IQueryable<ProductEntity> query)
         {
-            return _db.Products.Where(x => x.Category == category);
+            return query.Where(x => x.Category == category);
         }
+
+        #endregion
     }
 }
