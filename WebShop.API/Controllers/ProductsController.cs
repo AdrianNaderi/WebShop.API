@@ -42,6 +42,18 @@ namespace WebShop.API.Controllers
             return new OkObjectResult(product);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetProducts()
+        {
+            var products = await _service.ReadAllProductsAsync();
+            if (products == null)
+            {
+                return NotFound();
+            }
+            IEnumerable<ProductViewModel> productModels = _mapper.Map<IEnumerable<ProductEntity>, IEnumerable<ProductViewModel>>(products);
+            return new OkObjectResult(productModels);
+        }
+
         [HttpPost("Filtered")]
         public async Task<IActionResult> GetProducts(Filter filter)
         {
