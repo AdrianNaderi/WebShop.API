@@ -56,5 +56,32 @@ namespace WebShop.API.Services
             await _db.SaveChangesAsync();
 
         }
+
+        public async Task<IEnumerable<ProductEntity>> GetFilteredProducts(Filter filter)
+        {
+            Type t = filter.GetType();
+            IQueryable<ProductEntity> query = _db.Products;
+            foreach (var item in t.GetProperties())
+            {
+                query = Querybuilder(item.ToString(), item.GetValue(filter, null).ToString());
+                return await query.ToListAsync();
+            }
+        }
+
+        private IQueryable<ProductEntity> Querybuilder(string prop, string value)
+        {
+            switch (prop)
+            {
+                case "Category":
+                    return FilterByCategories(value);
+                default:
+                    return null;
+            }
+        }
+
+        private IQueryable<ProductEntity> FilterByCategories(string category)
+        {
+            return _db.Products.Where(x => x.Category == category);
+        }
     }
 }

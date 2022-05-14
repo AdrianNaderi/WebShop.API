@@ -11,6 +11,6 @@ namespace WebShop.API.Services
         Task DeleteProductAsync(ProductEntity product);
         Task UpdateProductAsync(UpdateProduct product);
         Task<bool> GetProductByName(string productName);
-
+        Task<IEnumerable<ProductEntity>> GetFilteredProducts(Filter filter);
     }
 }
