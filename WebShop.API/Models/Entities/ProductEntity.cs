@@ -20,21 +20,27 @@ namespace WebShop.API.Models.Entities
 
 
         [Required]
+        [ForeignKey("CategoryEntity")]
         public string Category { get; set; }
         [ValidateNever]
         public CategoryEntity CategoryEntity { get; set; }
 
         [Required]
+        [ForeignKey("ColorEntity")]
         public string Color { get; set; }
         [ValidateNever]
         public ColorEntity ColorEntity { get; set; }
 
         [Required]
+        [ForeignKey("SizeEntity")]
         public string Size { get; set; }
+        [ValidateNever]
         public SizeEntity SizeEntity { get; set; }
 
         [Required]
-        public string BrandId { get; set; }
+        [ForeignKey("BrandEntity")]
+        public int BrandId { get; set; }
+        [ValidateNever]
         public BrandEntity BrandEntity { get; set; }
 
 

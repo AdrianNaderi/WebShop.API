@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebShop.API.Models.ViewModels
+namespace WebShop.API.Models.ViewModels.Product
 {
         public class UpdateProduct
         {

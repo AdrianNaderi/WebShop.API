@@ -1,26 +1,23 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebShop.API.Models.Entities
+namespace WebShop.API.Models.ViewModels.Product
 {
-    public class Product
+    public class CreateProduct
     {
-        [Key]
-        public int ID { get; set; }
         [Required]
         public string Name { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         [Required]
-        [Column(TypeName = "money")]
         public decimal Price { get; set; }
+        public decimal? SalePrice { get; set; }
+        [Required]
+        public string Category { get; set; }
         [Required]
         public string Color { get; set; }
         [Required]
         public string Size { get; set; }
         [Required]
-        public string Brand { get; set; }
-        [Required]
-        public string Category { get; set; }
+        public int BrandId { get; set; }
         [Required]
         public bool OnSale { get; set; }
         [Required]

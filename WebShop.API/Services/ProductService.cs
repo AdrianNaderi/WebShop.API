@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebShop.API.Data;
 using WebShop.API.Models.Entities;
-using WebShop.API.Models.ViewModels;
+using WebShop.API.Models.ViewModels.Product;
 
 namespace WebShop.API.Services
 {
@@ -44,9 +44,10 @@ namespace WebShop.API.Services
             return products;
         }
 
-        public async Task<ProductEntity> ReadSingleProductAsync(int id)
+        public async Task<ProductViewModel> ReadSingleProductAsync(int id)
         {
-            return await _db.Products.FirstOrDefaultAsync(x => x.Id == id);
+            var productEntity = await _db.Products.Include(x => x.BrandEntity).FirstOrDefaultAsync();
+            return _mapper.Map<ProductViewModel>(productEntity);
         }
 
         public async Task UpdateProductAsync(UpdateProduct product)
