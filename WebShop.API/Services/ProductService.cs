@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebShop.API.Data;
 using WebShop.API.Models.Entities;
+using WebShop.API.Models.ViewModels;
 using WebShop.API.Models.ViewModels.Product;
 
 namespace WebShop.API.Services
@@ -64,8 +65,7 @@ namespace WebShop.API.Services
             IQueryable<ProductEntity> query = _db.Products;
             foreach (var item in t.GetProperties())
             {
-                query = Querybuilder(item.ToString(), item.GetValue(filter, null).ToString(), query);
-                return await query.ToListAsync();
+                query = Querybuilder(item.ToString().Split(' ')[1], item.GetValue(filter, null).ToString(), query);
             }
 
             return await query.ToListAsync();

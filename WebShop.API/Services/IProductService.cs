@@ -1,4 +1,5 @@
 ﻿using WebShop.API.Models.Entities;
+using WebShop.API.Models.ViewModels;
 using WebShop.API.Models.ViewModels.Product;
 
 namespace WebShop.API.Services
