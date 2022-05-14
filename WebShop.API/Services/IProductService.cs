@@ -1,5 +1,5 @@
 ﻿using WebShop.API.Models.Entities;
-using WebShop.API.Models.ViewModels;
+using WebShop.API.Models.ViewModels.Product;
 
 namespace WebShop.API.Services
 {
@@ -7,7 +7,7 @@ namespace WebShop.API.Services
     {
         Task CreateProductAsync(CreateProduct product);
         Task<IEnumerable<ProductEntity>> ReadAllProductsAsync();
-        Task<ProductEntity> ReadSingleProductAsync(int id);
+        Task<ProductViewModel> ReadSingleProductAsync(int id);
         Task DeleteProductAsync(ProductEntity product);
         Task UpdateProductAsync(UpdateProduct product);
         Task<bool> GetProductByName(string productName);
