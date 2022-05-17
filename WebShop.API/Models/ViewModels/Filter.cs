@@ -6,7 +6,7 @@
         public string Color { get; set; }
         public string Size { get; set; }
         public string Brand { get; set; }
-
+        public string OnSale { get; set; }
 
 
     }

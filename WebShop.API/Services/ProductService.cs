@@ -86,6 +86,8 @@ namespace WebShop.API.Services
                     return FilterBySizes(value, query);
                 case "Brand":
                     return FilterByBrands(value, query);
+                case "OnSale":
+                    return FilterByOnSale(value, query);
                 default:
                     return null;
             }
@@ -111,6 +113,12 @@ namespace WebShop.API.Services
         {
             return query.Where(x => x.BrandId == int.Parse(brand));
         }
+
+        private IQueryable<ProductEntity> FilterByOnSale(string onSale, IQueryable<ProductEntity> query)
+        {
+            return query.Where(x => x.OnSale == true);
+        }
+
         #endregion
     }
 }
