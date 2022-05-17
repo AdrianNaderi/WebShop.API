@@ -84,6 +84,8 @@ namespace WebShop.API.Services
                     return FilterByColors(value, query);
                 case "Size":
                     return FilterBySizes(value, query);
+                case "Brand":
+                    return FilterByBrands(value, query);
                 default:
                     return null;
             }
@@ -103,6 +105,11 @@ namespace WebShop.API.Services
         private IQueryable<ProductEntity> FilterBySizes(string size, IQueryable<ProductEntity> query)
         {
             return query.Where(x => x.Size == size);
+        }
+
+        private IQueryable<ProductEntity> FilterByBrands(string brand, IQueryable<ProductEntity> query)
+        {
+            return query.Where(x => x.BrandId == int.Parse(brand));
         }
         #endregion
     }
