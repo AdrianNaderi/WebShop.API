@@ -87,7 +87,7 @@ namespace WebShop.API.Services
                 case "Brand":
                     return FilterByBrands(value, query);
                 case "OnSale":
-                    return FilterByOnSale(value, query);
+                    return FilterByOnSale(query);
                 case "InStock":
                     return FilterByInStock(query);
                 default:
@@ -116,7 +116,7 @@ namespace WebShop.API.Services
             return query.Where(x => x.BrandId == int.Parse(brand));
         }
 
-        private IQueryable<ProductEntity> FilterByOnSale(string onSale, IQueryable<ProductEntity> query)
+        private IQueryable<ProductEntity> FilterByOnSale(IQueryable<ProductEntity> query)
         {
             return query.Where(x => x.OnSale == true);
         }
