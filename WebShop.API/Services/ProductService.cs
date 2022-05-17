@@ -80,6 +80,9 @@ namespace WebShop.API.Services
             {
                 case "Category":
                     return FilterByCategories(value, query);
+                case "Color":
+                    return FilterByColors(value, query);
+
                 default:
                     return null;
             }
@@ -89,6 +92,12 @@ namespace WebShop.API.Services
         private IQueryable<ProductEntity> FilterByCategories(string category, IQueryable<ProductEntity> query)
         {
             return query.Where(x => x.Category == category);
+        }
+
+
+        private IQueryable<ProductEntity> FilterByColors(string color, IQueryable<ProductEntity> query)
+        {
+            return query.Where(x => x.Color == color);
         }
 
         #endregion
