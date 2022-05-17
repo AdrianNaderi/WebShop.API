@@ -59,13 +59,16 @@ namespace WebShop.API.Services
 
         }
 
-        public async Task<IEnumerable<ProductEntity>> GetFilteredProducts(Filter filter)
+        public async Task<IEnumerable<ProductEntity>> GetFilteredProductsAsync(Filter filter)
         {
             Type t = filter.GetType();
             IQueryable<ProductEntity> query = _db.Products;
             foreach (var item in t.GetProperties())
             {
-                query = Querybuilder(item.ToString().Split(' ')[1], item.GetValue(filter, null).ToString(), query);
+                if (item.GetValue(filter, null).ToString() is not "")
+                {
+                    query = Querybuilder(item.ToString().Split(' ')[1], item.GetValue(filter, null).ToString(), query);
+                }
             }
 
             return await query.ToListAsync();

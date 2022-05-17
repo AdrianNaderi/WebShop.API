@@ -57,7 +57,7 @@ namespace WebShop.API.Controllers
         [HttpPost("Filtered")]
         public async Task<IActionResult> GetProducts(Filter filter)
         {
-            var result = await _service.GetFilteredProducts(filter);
+            var result = await _service.GetFilteredProductsAsync(filter);
             IEnumerable<ProductViewModel> products = _mapper.Map<IEnumerable<ProductEntity>, IEnumerable<ProductViewModel>>(result);
             return Ok(products);
         }
