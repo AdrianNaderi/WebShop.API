@@ -88,6 +88,8 @@ namespace WebShop.API.Services
                     return FilterByBrands(value, query);
                 case "OnSale":
                     return FilterByOnSale(value, query);
+                case "InStock":
+                    return FilterByInStock(query);
                 default:
                     return null;
             }
@@ -117,6 +119,11 @@ namespace WebShop.API.Services
         private IQueryable<ProductEntity> FilterByOnSale(string onSale, IQueryable<ProductEntity> query)
         {
             return query.Where(x => x.OnSale == true);
+        }
+
+        private IQueryable<ProductEntity> FilterByInStock(IQueryable<ProductEntity> query)
+        {
+            return query.Where(x => x.Quantity != 0);
         }
 
         #endregion
