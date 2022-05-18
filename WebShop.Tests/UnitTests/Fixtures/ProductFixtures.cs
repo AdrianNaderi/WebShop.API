@@ -1,8 +1,10 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebShop.API.Models.Entities;
 using WebShop.API.Models.ViewModels.Product;
 
 namespace WebShop.Tests.UnitTests.Fixtures

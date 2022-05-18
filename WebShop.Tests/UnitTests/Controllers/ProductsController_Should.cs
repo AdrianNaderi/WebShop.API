@@ -38,5 +38,38 @@ namespace WebShop.Tests.UnitTests.Controllers
             result.Should().BeOfType<OkObjectResult>();
             result.Value.Should().BeOfType<ProductViewModel>();
         }
+
+        [Fact]
+        public async Task Create_OnSuccess_Return_StatusCode200()
+        {
+            // Arrange
+            CreateProduct model = new CreateProduct
+            {
+                Name = "Nike",
+                Description = "Snabba skor",
+                Price = 300,
+                SalePrice = 200,
+                Category = "Shoes",
+                Color = "Red",
+                Size = "43",
+                BrandId = 3,
+                OnSale = true,
+                Quantity = 1,
+                Rating = 5,
+            };
+
+            var mockProductService = new Mock<IProductService>();
+            var mockMapper = new Mock<IMapper>();
+            mockProductService.Setup(s => s.CreateProductAsync(model));
+
+            var sut = new ProductsController(mockProductService.Object, mockMapper.Object);
+
+            // Act
+            var result = (OkResult)await sut.Create(model);
+
+            // Assert
+            result.Should().NotBeOfType<BadRequestResult>();
+            result.Should().BeOfType<OkResult>();
+        }
     }
 }
