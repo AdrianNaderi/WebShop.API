@@ -66,11 +66,9 @@ namespace WebShop.API.Services
             foreach (var item in t.GetProperties())
             {
                 if (item.GetValue(filter, null).ToString() is not "")
-                {
                     query = Querybuilder(item.ToString().Split(' ')[1], item.GetValue(filter, null).ToString(), query);
-                }
             }
-
+            query = QueryOrderbuilder(filter.OrderByAsc, query);
             return await query.ToListAsync();
         }
 
@@ -94,6 +92,19 @@ namespace WebShop.API.Services
                     return null;
             }
         }
+
+        private IQueryable<ProductEntity> QueryOrderbuilder(bool isAscending, IQueryable<ProductEntity> query, string property = "name")
+        {
+            switch (property)
+            {
+                case "name":
+                    return OrderByName(isAscending, query);
+                default:
+                    return query;
+            }
+        }
+
+
 
         #region Filters
         private IQueryable<ProductEntity> FilterByCategories(string category, IQueryable<ProductEntity> query)
@@ -124,6 +135,18 @@ namespace WebShop.API.Services
         private IQueryable<ProductEntity> FilterByInStock(IQueryable<ProductEntity> query)
         {
             return query.Where(x => x.Quantity != 0);
+        }
+
+        private IQueryable<ProductEntity> OrderByName(bool isAscending, IQueryable<ProductEntity> query)
+        {
+            if (isAscending)
+            {
+                return query.OrderBy(x => x.Name);
+            }
+            else
+            {
+                return query.OrderByDescending(x => x.Name);
+            }
         }
 
         #endregion

@@ -8,5 +8,6 @@
         public string Brand { get; set; }
         public string OnSale { get; set; }
         public string InStock { get; set; }
+        public bool OrderByAsc { get; set; }
     }
 }
