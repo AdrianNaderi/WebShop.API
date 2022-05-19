@@ -9,5 +9,7 @@
         public string OnSale { get; set; }
         public string InStock { get; set; }
         public bool OrderByAsc { get; set; }
+        public int DisplayCount { get; set; }
+        public int Page { get; set; }
     }
 }

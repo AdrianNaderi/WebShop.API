@@ -69,6 +69,7 @@ namespace WebShop.API.Services
                     query = Querybuilder(item.ToString().Split(' ')[1], item.GetValue(filter, null).ToString(), query);
             }
             query = QueryOrderbuilder(filter.OrderByAsc, query);
+            query = Pagebuilder(filter.DisplayCount, filter.Page, query);
             return await query.ToListAsync();
         }
 
@@ -104,8 +105,12 @@ namespace WebShop.API.Services
             }
         }
 
-
-
+        private IQueryable<ProductEntity> Pagebuilder(int displayCount, int page, IQueryable<ProductEntity> query)
+        {
+            return query
+                   .Skip(displayCount* (page-1))
+                   .Take(displayCount);
+        }
         #region Filters
         private IQueryable<ProductEntity> FilterByCategories(string category, IQueryable<ProductEntity> query)
         {
