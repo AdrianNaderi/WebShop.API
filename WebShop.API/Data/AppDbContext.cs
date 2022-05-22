@@ -25,7 +25,7 @@ namespace WebShop.API.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<ProductTag>().HasKey(t => new { t.Tag, t.ProductId });
-            builder.Entity<ProductColor>().HasKey(p=> new {p.ProductId, p.Color});
+            builder.Entity<ProductColor>().HasKey(p=> new {p.ProductId, p.ColorName});
             base.OnModelCreating(builder);
 
         }
