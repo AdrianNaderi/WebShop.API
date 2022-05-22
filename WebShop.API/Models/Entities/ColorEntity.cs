@@ -8,7 +8,9 @@ namespace WebShop.API.Models.Entities
         [Key]
         public string Color { get; set; }
 
+        public string Hex { get; set; }
+
         [ValidateNever]
-        public ICollection<ProductEntity> Products { get; set; }
+        public ICollection<ProductColor> ProductColors { get; set; }
     }
 }

@@ -20,11 +20,14 @@ namespace WebShop.API.Data
         public DbSet<OrderDetailEntity> OrderDetails { get; set; }
         public DbSet<ReviewEntity> Reviews { get; set; }
         public DbSet<TagEntity> Tags { get; set; }
+        public DbSet<ProductColor> ProductColors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<ProductTag>().HasKey(t => new { t.Tag, t.ProductId });
+            builder.Entity<ProductColor>().HasKey(p=> new {p.ProductId, p.Color});
             base.OnModelCreating(builder);
+
         }
     }
 }

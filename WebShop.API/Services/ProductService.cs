@@ -119,7 +119,8 @@ namespace WebShop.API.Services
 
         private IQueryable<ProductEntity> FilterByColors(string color, IQueryable<ProductEntity> query)
         {
-            return query.Where(x => x.Color == color);
+            //return query.Where(x => x.Color == color);
+            return query;
         }
         
         private IQueryable<ProductEntity> FilterBySizes(string size, IQueryable<ProductEntity> query)

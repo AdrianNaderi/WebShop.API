@@ -26,12 +26,6 @@ namespace WebShop.API.Models.Entities
         public CategoryEntity CategoryEntity { get; set; }
 
         [Required]
-        [ForeignKey("ColorEntity")]
-        public string Color { get; set; }
-        [ValidateNever]
-        public ColorEntity ColorEntity { get; set; }
-
-        [Required]
         [ForeignKey("SizeEntity")]
         public string Size { get; set; }
         [ValidateNever]
@@ -43,6 +37,10 @@ namespace WebShop.API.Models.Entities
         [ValidateNever]
         public BrandEntity BrandEntity { get; set; }
 
+        [ValidateNever]
+        public ICollection<ProductColor> Colors { get; set; }
+
+
 
         [Required]
         public bool OnSale { get; set; }
@@ -50,5 +48,7 @@ namespace WebShop.API.Models.Entities
         public int Quantity { get; set; }
         [Required]
         public int Rating { get; set; } = 0;
+
+        public string ImgagePath { get; set; }
     }
 }
