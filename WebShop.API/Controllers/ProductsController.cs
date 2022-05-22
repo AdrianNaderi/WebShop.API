@@ -62,6 +62,13 @@ namespace WebShop.API.Controllers
             return Ok(products);
         }
 
+        [HttpGet("Filterdata")]
+        public async Task<IActionResult> GetFilterData()
+        {
+            var filterData = _service.GetFilterData();
+            return Ok(filterData);
+        }
+
 
     }
 }

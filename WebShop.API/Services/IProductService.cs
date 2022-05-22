@@ -1,5 +1,6 @@
 ﻿using WebShop.API.Models.Entities;
 using WebShop.API.Models.ViewModels;
+using WebShop.API.Models.ViewModels.FilterData;
 using WebShop.API.Models.ViewModels.Product;
 
 namespace WebShop.API.Services
@@ -13,5 +14,7 @@ namespace WebShop.API.Services
         Task UpdateProductAsync(UpdateProduct product);
         Task<bool> GetProductByName(string productName);
         Task<IEnumerable<ProductEntity>> GetFilteredProductsAsync(Filter filter);
+
+        Task<FilterViewModel> GetFilterData();
     }
 }
