@@ -12,7 +12,9 @@ namespace WebShop.API.AutoMapper
             CreateMap<UpdateProduct, ProductEntity>().ReverseMap();
             CreateMap<ProductEntity, ProductViewModel>()
                 .ForMember(d => d.Brand, option => option.MapFrom(s => s.BrandEntity.BrandName));
-
+            CreateMap<ProductColor, ColorViewModel>()
+                .ForMember(d => d.ColorName, option => option.MapFrom(s => s.ColorName))
+                .ForMember(d => d.Hex, option => option.MapFrom(s => s.Color.Hex));
         }
     }
 }

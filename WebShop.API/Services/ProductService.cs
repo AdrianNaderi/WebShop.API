@@ -48,8 +48,10 @@ namespace WebShop.API.Services
 
         public async Task<ProductViewModel> ReadSingleProductAsync(int id)
         {
-            var productEntity = await _db.Products.Include(x => x.BrandEntity).FirstOrDefaultAsync();
-            return _mapper.Map<ProductViewModel>(productEntity);
+            var productEntity = _mapper.Map<ProductViewModel>(await _db.Products.Where(x => x.Id == id).Include(x => x.BrandEntity).FirstOrDefaultAsync());
+            var entityColors = _mapper.Map<ICollection<ColorViewModel>>(await _db.ProductColors.Where(x => x.ProductId == id).Include(x => x.Color).ToListAsync());
+            productEntity.Colors = entityColors;
+            return productEntity;
         }
 
         public async Task UpdateProductAsync(UpdateProduct product)
@@ -73,14 +75,14 @@ namespace WebShop.API.Services
 
         private async Task<ICollection<CategoryFilterOption>> FilterDataForCategories()
         {
-            var categories = _db.Categories.Include(x=>x.Products);
+            var categories = _db.Categories.Include(x => x.Products);
             var categoryOptions = new List<CategoryFilterOption>();
             foreach (var category in categories)
             {
                 var cfo = new CategoryFilterOption();
 
                 cfo.Category = category.Category;
-                cfo.Count = category.Products?.Count== null ? 0: category.Products.Count;
+                cfo.Count = category.Products?.Count == null ? 0 : category.Products.Count;
                 categoryOptions.Add(cfo);
             }
             return categoryOptions;
@@ -88,14 +90,14 @@ namespace WebShop.API.Services
 
         private async Task<ICollection<SizeFilterOption>> FilterDataForSizes()
         {
-            var sizes = _db.Sizes.Include(x=>x.Products);
+            var sizes = _db.Sizes.Include(x => x.Products);
             var sizeOptions = new List<SizeFilterOption>();
             foreach (var size in sizes)
             {
                 var cfo = new SizeFilterOption();
 
                 cfo.Size = size.Size;
-                cfo.Count = size.Products?.Count== null ? 0: size.Products.Count;
+                cfo.Count = size.Products?.Count == null ? 0 : size.Products.Count;
                 sizeOptions.Add(cfo);
             }
             return sizeOptions;
@@ -103,7 +105,7 @@ namespace WebShop.API.Services
 
         private async Task<ICollection<ColorFilterOption>> FilterDataForColor()
         {
-            var colors = _db.Colors.Include(x=>x.ProductColors).ThenInclude(y=>y.Product);
+            var colors = _db.Colors.Include(x => x.ProductColors).ThenInclude(y => y.Product);
             var colorOptions = new List<ColorFilterOption>();
             foreach (var color in colors)
             {
@@ -111,7 +113,7 @@ namespace WebShop.API.Services
 
                 cfo.Color = color.Color;
                 cfo.Hex = color.Hex;
-                cfo.Count = color.ProductColors?.Count== null ? 0: color.ProductColors.Count;
+                cfo.Count = color.ProductColors?.Count == null ? 0 : color.ProductColors.Count;
                 colorOptions.Add(cfo);
             }
             return colorOptions;
