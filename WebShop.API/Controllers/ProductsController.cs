@@ -69,6 +69,12 @@ namespace WebShop.API.Controllers
             return Ok(filterData);
         }
 
+        [HttpPut("Update")]
+        public async Task<IActionResult> UpdateProduct(UpdateProduct product)
+        {
+            await _service.UpdateProductAsync(product);
+            return Ok();
+        }
 
     }
 }

@@ -9,7 +9,7 @@ namespace WebShop.API.AutoMapper
         public AutoMapperProfiles()
         {
             CreateMap<CreateProduct, ProductEntity>();
-            CreateMap<UpdateProduct, ProductEntity>().ReverseMap();
+            CreateMap<UpdateProduct, ProductEntity>();
             CreateMap<ProductEntity, ProductViewModel>()
                 .ForMember(d => d.Brand, option => option.MapFrom(s => s.BrandEntity.BrandName));
 

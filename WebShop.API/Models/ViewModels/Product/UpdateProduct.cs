@@ -1,19 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebShop.API.Models.ViewModels.Product
 {
-        public class UpdateProduct
-        {
-                public int ID { get; set; }
-                public string Name { get; set; }
-                public string Description { get; set; }
-                public decimal Price { get; set; }
-                public string Color { get; set; }
-                public string Size { get; set; }
-                public string Brand { get; set; }
-                public string Category { get; set; }
-                public bool OnSale { get; set; }
-                public int Quantity { get; set; }
-                public int Rating { get; set; } = 0;
-        }
+    public class UpdateProduct
+    {
+        public int Id { get; set; }
+        public string ImagePath { get; set; }
+    }
 }
