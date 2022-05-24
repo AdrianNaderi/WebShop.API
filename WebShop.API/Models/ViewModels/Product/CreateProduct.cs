@@ -13,8 +13,6 @@ namespace WebShop.API.Models.ViewModels.Product
         [Required]
         public string Category { get; set; }
         [Required]
-        public string Color { get; set; }
-        [Required]
         public string Size { get; set; }
         [Required]
         public int BrandId { get; set; }
