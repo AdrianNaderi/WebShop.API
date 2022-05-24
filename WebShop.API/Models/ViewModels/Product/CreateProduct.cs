@@ -13,8 +13,6 @@ namespace WebShop.API.Models.ViewModels.Product
         [Required]
         public string Category { get; set; }
         [Required]
-        public string Color { get; set; }
-        [Required]
         public string Size { get; set; }
         [Required]
         public int BrandId { get; set; }
@@ -24,5 +22,8 @@ namespace WebShop.API.Models.ViewModels.Product
         public int Quantity { get; set; }
         [Required]
         public int Rating { get; set; } = 0;
+        [Required]
+        public string ImagePath { get; set; }
+
     }
 }
