@@ -1,4 +1,5 @@
-﻿namespace WebShop.API.Models.ViewModels.Product
+﻿
+namespace WebShop.API.Models.ViewModels.Product
 {
     public class ProductViewModel
     {
@@ -6,7 +7,8 @@
         {
 
         }
-        public ProductViewModel(int id, string name, string? description, decimal price, decimal? salePrice, string category, string color, string size, string brand, bool onSale, int quantity, int rating)
+
+        public ProductViewModel(int id, string name, string? description, decimal price, decimal? salePrice, string category, ICollection<ColorViewModel> colors, string size, string brand, bool onSale, int quantity, int rating, string imagePath)
         {
             Id = id;
             Name = name;
@@ -14,12 +16,13 @@
             Price = price;
             SalePrice = salePrice;
             Category = category;
-            Color = color;
+            Colors = colors;
             Size = size;
             Brand = brand;
             OnSale = onSale;
             Quantity = quantity;
             Rating = rating;
+            ImagePath = imagePath;
         }
 
         public int Id { get; set; }
@@ -28,11 +31,12 @@
         public decimal Price { get; set; }
         public decimal? SalePrice { get; set; }
         public string Category { get; set; }
-        public string Color { get; set; }
+        public ICollection<ColorViewModel> Colors { get; set; }
         public string Size { get; set; }
         public string Brand { get; set; }
         public bool OnSale { get; set; }
         public int Quantity { get; set; }
         public int Rating { get; set; } = 0;
+        public string ImagePath { get; set; }
     }
 }
