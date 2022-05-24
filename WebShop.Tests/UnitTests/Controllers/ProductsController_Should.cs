@@ -50,7 +50,6 @@ namespace WebShop.Tests.UnitTests.Controllers
                 Price = 300,
                 SalePrice = 200,
                 Category = "Shoes",
-                Color = "Red",
                 Size = "43",
                 BrandId = 3,
                 OnSale = true,

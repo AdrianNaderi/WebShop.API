@@ -49,6 +49,6 @@ namespace WebShop.API.Models.Entities
         [Required]
         public int Rating { get; set; } = 0;
 
-        public string ImgagePath { get; set; }
+        public string ImagePath { get; set; }
     }
 }

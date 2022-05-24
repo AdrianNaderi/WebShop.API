@@ -22,5 +22,8 @@ namespace WebShop.API.Models.ViewModels.Product
         public int Quantity { get; set; }
         [Required]
         public int Rating { get; set; } = 0;
+        [Required]
+        public string ImagePath { get; set; }
+
     }
 }
