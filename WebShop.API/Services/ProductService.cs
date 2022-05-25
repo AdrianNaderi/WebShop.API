@@ -55,7 +55,7 @@ namespace WebShop.API.Services
             }
             else
             {
-                totalPages = (itemCount/options.DisplayCount) + 1;
+                totalPages = (itemCount / options.DisplayCount) + 1;
             }
 
             displayProducts.TotalPages = totalPages;
@@ -140,13 +140,24 @@ namespace WebShop.API.Services
         {
             Type t = filter.GetType();
             IQueryable<ProductEntity> query = _db.Products;
+            query = query.Include(y => y.BrandEntity);
+            query = query.Include(y => y.Colors).ThenInclude(z => z.Color);
             foreach (var item in t.GetProperties())
             {
-                if (item.GetValue(filter, null).ToString() is not "")
-                    query = Querybuilder(item.ToString().Split(' ')[1], item.GetValue(filter, null).ToString(), query);
+                var filterName = item.ToString().Split(' ')[1];
+                var filterValue = item.GetValue(filter, null).ToString();
+
+                if (filterName is not "Page" ||filterName is not "DisplayCount") 
+                {
+                    if (filterValue is not "") //Add exclusion for orderby
+                    {
+                        query = Querybuilder(filterName, filterValue, query);
+                    }
+                }
             }
-            query = QueryOrderbuilder(filter.OrderByAsc, query);
-            query = Pagebuilder(filter.DisplayCount, filter.Page, query);
+            //OrderBy is handled above since we have the property.
+            //query = QueryOrderbuilder(filter.OrderByAsc, query);
+            //query = Pagebuilder(filter.DisplayCount, filter.Page, query);
             return await query.ToListAsync();
         }
 
@@ -188,6 +199,8 @@ namespace WebShop.API.Services
                    .Skip(displayCount * (page - 1))
                    .Take(displayCount);
         }
+        
+        
         #region Filters
         private IQueryable<ProductEntity> FilterByCategories(string category, IQueryable<ProductEntity> query)
         {
@@ -196,7 +209,7 @@ namespace WebShop.API.Services
 
         private IQueryable<ProductEntity> FilterByColors(string color, IQueryable<ProductEntity> query)
         {
-            //return query.Where(x => x.Color == color);
+            return query.Where(x=> x.Colors.Any(y=>y.ColorName == color));
             return query;
         }
 
@@ -207,7 +220,7 @@ namespace WebShop.API.Services
 
         private IQueryable<ProductEntity> FilterByBrands(string brand, IQueryable<ProductEntity> query)
         {
-            return query.Where(x => x.BrandId == int.Parse(brand));
+            return query.Where(x => x.BrandEntity.BrandName == brand);
         }
 
         private IQueryable<ProductEntity> FilterByOnSale(IQueryable<ProductEntity> query)
@@ -231,8 +244,6 @@ namespace WebShop.API.Services
                 return query.OrderByDescending(x => x.Name);
             }
         }
-
-
         #endregion
     }
 }
