@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using WebShop.API.Data;
+using WebShop.API.ExtensionMethods;
 using WebShop.API.Models.Entities;
 using WebShop.API.Models.ViewModels;
 using WebShop.API.Models.ViewModels.FilterData;
@@ -146,18 +147,26 @@ namespace WebShop.API.Services
             {
                 var filterName = item.ToString().Split(' ')[1];
                 var filterValue = item.GetValue(filter, null).ToString();
-
-                if (filterName is not "Page" ||filterName is not "DisplayCount") 
+                var isFilerable = filterName.IsFilterable();
+                if (isFilerable) 
                 {
-                    if (filterValue is not "") //Add exclusion for orderby
-                    {
+                    if (filterValue is not "")
                         query = Querybuilder(filterName, filterValue, query);
-                    }
+                }
+                if (filterName == "OnSale")
+                {
+                    if (filterValue is not "")
+                        query = FilterByOnSale(query);
+                }
+                if (filterName == "InStock")
+                {
+                    if (filterValue is not "")
+                        query = FilterByInStock(query);
                 }
             }
             //OrderBy is handled above since we have the property.
             //query = QueryOrderbuilder(filter.OrderByAsc, query);
-            //query = Pagebuilder(filter.DisplayCount, filter.Page, query);
+            query = Pagebuilder(filter.DisplayCount, filter.Page, query);
             return await query.ToListAsync();
         }
 
