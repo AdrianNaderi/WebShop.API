@@ -20,7 +20,6 @@ namespace WebShop.API.Controllers
             _mapper = mapper;
         }
 
-
         [HttpPost]
         public async Task<IActionResult> Create (CreateProduct product)
         {
@@ -29,7 +28,6 @@ namespace WebShop.API.Controllers
             await _service.CreateProductAsync(product);
             return Ok();
         }
-
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductViewModel>> GetProduct(int id)
@@ -42,16 +40,15 @@ namespace WebShop.API.Controllers
             return new OkObjectResult(product);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetProducts()
+        [HttpPost("Display")]
+        public async Task<IActionResult> GetProducts(DisplayOptions options)
         {
-            var products = await _service.ReadAllProductsAsync();
+            var products = await _service.ReadAllProductsAsync(options);
             if (products == null)
             {
                 return NotFound();
             }
-            IEnumerable<ProductViewModel> productModels = _mapper.Map<IEnumerable<ProductEntity>, IEnumerable<ProductViewModel>>(products);
-            return new OkObjectResult(productModels);
+            return Ok(products);
         }
 
         [HttpPost("Filtered")]
@@ -75,6 +72,7 @@ namespace WebShop.API.Controllers
             await _service.UpdateProductAsync(product);
             return Ok();
         }
+
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using WebShop.API.Data;
 using WebShop.API.Models.Entities;
@@ -40,10 +41,25 @@ namespace WebShop.API.Services
             await _db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ProductEntity>> ReadAllProductsAsync()
+        public async Task<DisplayProducts> ReadAllProductsAsync(DisplayOptions options)
         {
-            var products = await _db.Products.ToListAsync();
-            return products;
+            var products = await _db.Products.Skip(options.DisplayCount * (options.Page - 1)).Take(options.DisplayCount).ToListAsync();
+            ICollection<ProductViewModel> productModels = _mapper.Map<IEnumerable<ProductEntity>, ICollection<ProductViewModel>>(products);
+            DisplayProducts displayProducts = new DisplayProducts();
+            var itemCount = _db.Products.Count();
+            displayProducts.Products = productModels;
+            var totalPages = 0;
+            if (itemCount % options.DisplayCount == 0)
+            {
+                totalPages = itemCount / options.DisplayCount;
+            }
+            else
+            {
+                totalPages = (itemCount/options.DisplayCount) + 1;
+            }
+
+            displayProducts.TotalPages = totalPages;
+            return displayProducts;
         }
 
         public async Task<ProductViewModel> ReadSingleProductAsync(int id)
