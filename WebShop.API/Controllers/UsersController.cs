@@ -4,6 +4,8 @@ using WebShop.API.Models.ViewModels.UserModels;
 using WebShop.API.Models.ViewModels.User;
 using WebShop.API.Services;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using WebShop.API.Models.Entities;
 
 namespace WebShop.API.Controllers
 {
@@ -19,7 +21,7 @@ namespace WebShop.API.Controllers
             _loginService = loginService;
             _userManager = userManager;
         }
-         
+
 
         [HttpPost("Login")]
         public async Task<IActionResult> LoginUser(LoginUser loginUser)
@@ -41,25 +43,24 @@ namespace WebShop.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost("Register")]
         public async Task<IActionResult> Register(UserRegisterModel model)
         {
-            if (ModelState.IsValid)
+            ApplicationUser user = new(model);
+            var result = await _userManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
             {
-                var user = new IdentityUser()
-                {
-                    UserName = model.UserName,
-                    Email = model.Email,
-                };
-
-                var registration = await _userManager.CreateAsync(user);
-                if (registration.Succeeded)
-                {
-                    return new OkObjectResult(user);
-                }
+                return BadRequest(result.Errors);
             }
-
-            return new BadRequestResult();
+            return Ok();
         }
+
+        [Authorize]
+        [HttpPost("Test")]
+        public async Task<IActionResult> TestLoginToken()
+        {
+            return Ok();
+        }
+
     }
 }
