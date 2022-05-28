@@ -30,7 +30,7 @@ namespace WebShop.API.Controllers
                 return BadRequest("Payload cannot be empty");
 
             var isEmail = loginUser.Payload.Contains('@');
-            var result = string.Empty;
+            var result = new LoginUserResponse();
 
             if (isEmail)
                 result = await _loginService.LoginWithEmailAsync(loginUser);
@@ -39,6 +39,7 @@ namespace WebShop.API.Controllers
 
             if (result is null)
                 return BadRequest("Login Failed");
+
 
             return Ok(result);
         }

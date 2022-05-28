@@ -20,6 +20,11 @@ namespace WebShop.API.Services
                 {
                         return await _db.Users.FirstOrDefaultAsync(x => x.Email == email);
                 }
-        }
+
+                public async Task<IdentityUser> FindUserByUserNameAsync(string user)
+                {
+                        return await _db.Users.FirstOrDefaultAsync(x => x.UserName == user);
+                }
+    }
 }
 

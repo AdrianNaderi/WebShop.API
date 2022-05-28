@@ -6,5 +6,7 @@ namespace WebShop.API.Services
         public interface IUserService
         {
                 Task<IdentityUser> FindUserByEmailAsync(string email);
+                Task<IdentityUser> FindUserByUserNameAsync(string user);
+
         }
 }

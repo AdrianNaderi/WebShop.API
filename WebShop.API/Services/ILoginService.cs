@@ -2,9 +2,9 @@
 
 namespace WebShop.API.Services
 {
-        public interface ILoginService
-        {
-                Task<string> LoginWithEmailAsync(LoginUser loginUser);
-                Task<string> LoginWithUsernameAsync(LoginUser loginUser);
-        }
+    public interface ILoginService
+    {
+        Task<LoginUserResponse> LoginWithEmailAsync(LoginUser loginUser);
+        Task<LoginUserResponse> LoginWithUsernameAsync(LoginUser loginUser);
+    }
 }

@@ -21,26 +21,32 @@ namespace WebShop.API.Services
             _userService = userService;
         }
 
-        public async Task<string> LoginWithEmailAsync(LoginUser loginUser)
+        public async Task<LoginUserResponse> LoginWithEmailAsync(LoginUser loginUser)
         {
             var user = await _userService.FindUserByEmailAsync(loginUser.Payload);
             if (user is null)
                 return null;
 
             var login = await _signInManager.PasswordSignInAsync(user.UserName, loginUser.Password, false, lockoutOnFailure: false);
-            if (login.Succeeded)
-                return HandingOverToken(loginUser.Payload);
+            if(!login.Succeeded)    
+                return null;
 
-            return null;
+            var token = HandingOverToken(user.UserName);
+            return new LoginUserResponse(user.Email, user.UserName, token);
+
         }
 
-        public async Task<string> LoginWithUsernameAsync(LoginUser loginUser)
+        public async Task<LoginUserResponse> LoginWithUsernameAsync(LoginUser loginUser)
         {
+            var user = await _userService.FindUserByUserNameAsync(loginUser.Payload);
             var login = await _signInManager.PasswordSignInAsync(loginUser.Payload, loginUser.Password, false, lockoutOnFailure: false);
-            if (login.Succeeded)
-                return HandingOverToken(loginUser.Payload);
+            if (!login.Succeeded)
+                return null;
 
-            return null;
+            var token = HandingOverToken(user.UserName);
+            return new LoginUserResponse(user.Email, user.UserName, token);
+
+
         }
 
         private string HandingOverToken(string username)
