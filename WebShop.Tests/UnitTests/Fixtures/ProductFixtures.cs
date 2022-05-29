@@ -24,5 +24,6 @@ namespace WebShop.Tests.UnitTests.Fixtures
             await Task.Delay(800);
             return _products.FirstOrDefault(x => x.Id == id);
         }
+
     }
 }

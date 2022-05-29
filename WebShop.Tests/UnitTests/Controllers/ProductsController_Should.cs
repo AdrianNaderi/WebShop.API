@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -8,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebShop.API.Controllers;
+using WebShop.API.Models.ViewModels;
 using WebShop.API.Models.ViewModels.Product;
 using WebShop.API.Services;
 using WebShop.Tests.UnitTests.Fixtures;
@@ -69,6 +72,16 @@ namespace WebShop.Tests.UnitTests.Controllers
             // Assert
             result.Should().NotBeOfType<BadRequestResult>();
             result.Should().BeOfType<OkResult>();
+        }
+
+        [Fact]
+        public async Task Filtered_Should_Return_Ok()
+        {
+            var productServiceMock = new Mock<IProductService>();
+            var imapperMock = new Mock<IMapper>();
+            var sut = new ProductsController(productServiceMock.Object, imapperMock.Object);
+            var result = await sut.GetFilterData();
+            result.Should().BeOfType<OkObjectResult>();
         }
     }
 }
